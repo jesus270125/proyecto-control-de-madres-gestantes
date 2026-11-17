@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../data/local_repository.dart';
 import '../design.dart';
-import 'core_screens.dart';
 
 Future<void> dial(BuildContext context, String number) async {
   final digits = number.replaceAll(RegExp(r'[^0-9+]'), '');
