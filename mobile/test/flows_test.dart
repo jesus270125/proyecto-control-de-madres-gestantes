@@ -33,6 +33,7 @@ void main() {
       await tester.tap(find.text('No'));
       await tester.pumpAndSettle();
     }
+    await tester.scrollUntilVisible(find.textContaining('Acude ahora'), 200);
     expect(find.textContaining('Acude ahora'), findsOneWidget);
   });
   testWidgets(
@@ -83,7 +84,7 @@ void main() {
       );
       tester.testTextInput.hide();
       await tester.pumpAndSettle();
-      await tester.ensureVisible(find.text('Guardar'));
+      await tester.scrollUntilVisible(find.text('Guardar'), 200);
       await tester.pumpAndSettle();
       await tester.tap(find.text('Guardar'));
       await tester.pumpAndSettle();
