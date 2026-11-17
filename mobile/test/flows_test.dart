@@ -57,7 +57,11 @@ void main() {
       await tester.tap(find.text('Guardar'));
       await tester.pumpAndSettle();
       expect(find.text('Hola, Persona'), findsOneWidget);
-      await tester.tap(find.text('Mis controles'));
+      await tester.ensureVisible(find.text('Mis controles'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Mis controles')); 
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text('Registrar control'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Registrar control'));
       await tester.pumpAndSettle();

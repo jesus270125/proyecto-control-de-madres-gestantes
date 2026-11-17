@@ -39,6 +39,7 @@ jobs:
         run: |
           set -o pipefail
           flutter test --no-pub 2>&1 | tee "$RUNNER_TEMP/test-output.txt" || {
+            while IFS= read -r line; do echo "::error::$line"; done < <(grep -E 'EXCEPTION CAUGHT|overflowed|Expected:|Actual:|Error:|test/flows_test.dart:[0-9]+' "$RUNNER_TEMP/test-output.txt" | head -n 20)
             while IFS= read -r line; do echo "::error::$line"; done < <(tail -n 45 "$RUNNER_TEMP/test-output.txt")
             exit 1
           }
