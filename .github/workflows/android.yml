@@ -47,7 +47,7 @@ jobs:
         run: |
           set -o pipefail
           flutter analyze --no-pub --no-fatal-infos 2>&1 | tee "$RUNNER_TEMP/analyze-output.txt" || {
-            while IFS= read -r line; do echo "::error::$line"; done < <(tail -n 30 "$RUNNER_TEMP/analyze-output.txt")
+            while IFS= read -r line; do echo "::error::$line"; done < <(grep -E 'error •|warning •' "$RUNNER_TEMP/analyze-output.txt" | head -n 40)
             exit 1
           }
       - name: Compilar APK de prueba por arquitectura
