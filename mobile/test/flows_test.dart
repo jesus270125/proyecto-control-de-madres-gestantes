@@ -84,7 +84,11 @@ void main() {
       );
       tester.testTextInput.hide();
       await tester.pumpAndSettle();
-      await tester.scrollUntilVisible(find.text('Guardar'), 200);
+      await tester.scrollUntilVisible(
+        find.text('Guardar'),
+        200,
+        scrollable: find.descendant(of: find.byType(ControlFormScreen), matching: find.byType(Scrollable)).first,
+      );
       await tester.pumpAndSettle();
       await tester.tap(find.text('Guardar'));
       await tester.pumpAndSettle();
