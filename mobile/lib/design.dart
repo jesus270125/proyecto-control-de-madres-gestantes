@@ -8,6 +8,8 @@ const rose = Color(0xFFF4E4E9);
 const cream = Color(0xFFF7ECCD);
 const background = Color(0xFFFFF9F7);
 final textScale = ValueNotifier<double>(1);
+final navigationTab = ValueNotifier<int>(0);
+final voiceVolume = ValueNotifier<double>(1);
 
 Widget art(String id, {double size = 28}) => SvgPicture.asset('assets/figma/$id.svg', width: size, height: size, fit: BoxFit.contain);
 
@@ -17,6 +19,7 @@ class Voice {
     try {
       await _tts.setLanguage('es-PE');
       await _tts.setSpeechRate(0.43);
+      await _tts.setVolume(voiceVolume.value);
       await _tts.speak(text);
     } catch (_) {
       if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('La voz en español no está disponible en este dispositivo.')));
@@ -78,4 +81,24 @@ class ListenButton extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) => IconButton(onPressed: () => Voice.speak(context, text), tooltip: 'Escuchar', icon: const Icon(Icons.volume_up_outlined, color: wine));
+}
+
+class FigNavigation extends StatelessWidget {
+  const FigNavigation({super.key, required this.selected, this.onSelected});
+  final int selected;
+  final ValueChanged<int>? onSelected;
+  @override
+  Widget build(BuildContext context) => NavigationBar(
+    selectedIndex: selected, indicatorColor: rose,
+    onDestinationSelected: (index) {
+      if (onSelected != null) { onSelected!(index); return; }
+      navigationTab.value = index;
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    },
+    destinations: const [
+      NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Inicio'),
+      NavigationDestination(icon: Icon(Icons.calendar_month_outlined), label: 'Controles'),
+      NavigationDestination(icon: Icon(Icons.warning_amber_outlined), label: 'Alertas'),
+      NavigationDestination(icon: Icon(Icons.settings_outlined), label: 'Ajustes'),
+    ]);
 }

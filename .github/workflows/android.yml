@@ -51,11 +51,31 @@ jobs:
             exit 1
           }
       - name: Compilar APK de prueba por arquitectura
-        run: flutter build apk --release --split-per-abi --no-pub
-      - name: Guardar APK
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter build apk --release --split-per-abi --no-pub 2>&1 | tee "$RUNNER_TEMP/build-output.txt" || {
+            while IFS= read -r line; do echo "::error::$line"; done < <(tail -n 45 "$RUNNER_TEMP/build-output.txt")
+            exit 1
+          }
+      - name: Guardar APK ARM64
         uses: actions/upload-artifact@v7
         with:
-          name: control-gestantes-apk-prueba
-          path: mobile/build/app/outputs/flutter-apk/app-*-release.apk
+          name: rimaykullayki-arm64-prueba
+          path: mobile/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+          if-no-files-found: error
+          retention-days: 7
+      - name: Guardar APK ARM 32 bits
+        uses: actions/upload-artifact@v7
+        with:
+          name: rimaykullayki-arm32-prueba
+          path: mobile/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+          if-no-files-found: error
+          retention-days: 7
+      - name: Guardar APK para emulador
+        uses: actions/upload-artifact@v7
+        with:
+          name: rimaykullayki-x86-64-prueba
+          path: mobile/build/app/outputs/flutter-apk/app-x86_64-release.apk
           if-no-files-found: error
           retention-days: 7

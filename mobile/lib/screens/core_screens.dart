@@ -14,7 +14,18 @@ class StartScreen extends StatefulWidget {
 }
 class _StartScreenState extends State<StartScreen> {
   late Future<Profile?> _profile;
-  @override void initState() { super.initState(); _profile = widget.repository.getProfile(); }
+  @override void initState() { super.initState(); _profile = widget.repository.getProfile(); _loadPreferences(); }
+  Future<void> _loadPreferences() async {
+    final repo = widget.repository;
+    if (repo is! SettingsRepository) return;
+    try {
+      final settings = repo as SettingsRepository;
+      final scale = double.tryParse(await settings.getSetting('text_scale') ?? '');
+      final volume = double.tryParse(await settings.getSetting('voice_volume') ?? '');
+      if (scale != null && scale >= .9 && scale <= 1.3) textScale.value = scale;
+      if (volume != null && volume >= 0 && volume <= 1) voiceVolume.value = volume;
+    } catch (_) { /* El estado principal muestra los errores de almacenamiento. */ }
+  }
   @override Widget build(BuildContext context) => FutureBuilder<Profile?>(future: _profile, builder: (context, snapshot) {
     if (snapshot.hasError) return const Scaffold(body: Center(child: Padding(padding: EdgeInsets.all(24), child: Text('No se pudo abrir el almacenamiento. Los datos no se han borrado.'))));
     if (snapshot.connectionState != ConnectionState.done) return const Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -89,12 +100,13 @@ class HomeShell extends StatefulWidget {
 }
 class _HomeShellState extends State<HomeShell> {
   late Profile profile; int tab = 0; int? mood;
-  @override void initState() { super.initState(); profile = widget.initial; }
+  @override void initState() { super.initState(); profile = widget.initial; navigationTab.addListener(_syncTab); }
+  @override void dispose() { navigationTab.removeListener(_syncTab); super.dispose(); }
+  void _syncTab() { if (mounted) setState(() => tab = navigationTab.value); }
   void push(Widget page) => Navigator.push(context, MaterialPageRoute(builder: (_) => page));
   @override Widget build(BuildContext context) {
     final screens = [home(), ControlsScreen(repository: widget.repository, embedded: true), AlertScreen(repository: widget.repository, embedded: true), SettingsScreen(repository: widget.repository, embedded: true)];
-    return Scaffold(appBar: const BrandBar(), body: SafeArea(child: screens[tab]), bottomNavigationBar: NavigationBar(selectedIndex: tab, onDestinationSelected: (v) => setState(() => tab = v), indicatorColor: rose,
-      destinations: const [NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Inicio'), NavigationDestination(icon: Icon(Icons.calendar_month_outlined), label: 'Controles'), NavigationDestination(icon: Icon(Icons.warning_amber_outlined), label: 'Alertas'), NavigationDestination(icon: Icon(Icons.settings_outlined), label: 'Ajustes')]));
+    return Scaffold(appBar: const BrandBar(), body: SafeArea(child: screens[tab]), bottomNavigationBar: FigNavigation(selected: tab, onSelected: (v) { navigationTab.value = v; setState(() => tab = v); }));
   }
   Widget home() {
     final p = profile.lastPeriod; final days = p == null ? null : DateTime.now().difference(p).inDays; final valid = days != null && days >= 0 && days <= 294;
