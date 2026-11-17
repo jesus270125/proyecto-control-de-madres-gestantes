@@ -18,7 +18,7 @@ Aplicación móvil para acompañamiento prenatal, basada en el diseño de Rimayk
 
 ### Aplicación Android
 
-En `mobile`, ejecutar `flutter pub get` y `flutter run` con el SDK de Android configurado y un dispositivo disponible. Se requieren Android 7.0 (API 24) o posterior y Java 17 o superior. El SDK Flutter instalado durante el desarrollo se encuentra en `.tools/flutter` y no se sube al repositorio.
+La compilación de prueba se ejecuta en GitHub Actions y deja el APK como artefacto de la ejecución. Para compilar localmente, instalar Flutter y el SDK de Android, y ejecutar `flutter pub get` y `flutter run` en `mobile`. Se requieren Android 7.0 (API 24) o posterior y Java 17 o superior.
 
 La versión de desarrollo permite registrar un perfil y controles localmente en una base SQLCipher, con la clave en almacenamiento seguro del dispositivo. Todavía no hay cuentas, recuperación, sincronización con MySQL ni validación clínica. **Usar únicamente datos ficticios**, hasta completar y verificar las medidas de seguridad en Android.
 
