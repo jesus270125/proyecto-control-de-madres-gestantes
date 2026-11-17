@@ -100,24 +100,25 @@ class HomeShell extends StatefulWidget {
 }
 class _HomeShellState extends State<HomeShell> {
   late Profile profile; int tab = 0; int? mood;
-  @override void initState() { super.initState(); profile = widget.initial; navigationTab.addListener(_syncTab); }
+  @override void initState() { super.initState(); profile = widget.initial; navigationTab.value = 0; navigationTab.addListener(_syncTab); }
   @override void dispose() { navigationTab.removeListener(_syncTab); super.dispose(); }
   void _syncTab() { if (mounted) setState(() => tab = navigationTab.value); }
+  void selectTab(int value) { if (navigationTab.value != value) { navigationTab.value = value; } else if (tab != value) { setState(() => tab = value); } }
   void push(Widget page) => Navigator.push(context, MaterialPageRoute(builder: (_) => page));
   @override Widget build(BuildContext context) {
     final screens = [home(), ControlsScreen(repository: widget.repository, embedded: true), AlertScreen(repository: widget.repository, embedded: true), SettingsScreen(repository: widget.repository, embedded: true)];
-    return Scaffold(appBar: const BrandBar(), body: SafeArea(child: screens[tab]), bottomNavigationBar: FigNavigation(selected: tab, onSelected: (v) { navigationTab.value = v; setState(() => tab = v); }));
+    return Scaffold(appBar: const BrandBar(), body: SafeArea(child: screens[tab]), bottomNavigationBar: FigNavigation(selected: tab, onSelected: selectTab));
   }
   Widget home() {
     final p = profile.lastPeriod; final days = p == null ? null : DateTime.now().difference(p).inDays; final valid = days != null && days >= 0 && days <= 294;
     return ListView(padding: const EdgeInsets.all(16), children: [
       SectionTitle('Hola, ${profile.name.split(' ').first}'), const SizedBox(height: 16),
       RoundedCard(color: rose, child: Row(children: [art('922fa', size: 72), const SizedBox(width: 12), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(valid ? 'Semana estimada ${days ~/ 7}' : 'Tu embarazo', style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w800, height: 1.1)), const SizedBox(height: 6), Text(valid ? 'Parto probable estimado ${dateLabel(p!.add(const Duration(days: 280)))}' : 'Completa o confirma tus fechas con tu obstetra.')]))])),
-      const SizedBox(height: 16), RoundedCard(onTap: () => setState(() => tab = 1), child: const Row(children: [Icon(Icons.calendar_month, color: wine, size: 32), SizedBox(width: 14), Expanded(child: Text('Mis controles prenatales\nVer mis registros y citas', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)))])),
+      const SizedBox(height: 16), RoundedCard(onTap: () => selectTab(1), child: const Row(children: [Icon(Icons.calendar_month, color: wine, size: 32), SizedBox(width: 14), Expanded(child: Text('Mis controles prenatales\nVer mis registros y citas', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)))])),
       const SizedBox(height: 16), const Text('¿Cómo estás hoy?', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)), const SizedBox(height: 8),
       Row(children: [for (final item in [(0,'19f94','Bien'),(1,'2a703','Regular'),(2,'b5e8c','Mal')]) Expanded(child: Padding(padding: const EdgeInsets.only(right: 8), child: RoundedCard(color: mood == item.$1 ? rose : Colors.white, onTap: () { setState(() => mood = item.$1); if (item.$1 == 2) push(AlertScreen(repository: widget.repository)); }, child: Column(children: [art(item.$2, size: 36), Text(item.$3, style: const TextStyle(fontWeight: FontWeight.w700))]))))]),
-      const SizedBox(height: 16), Row(children: [Expanded(child: homeTile('1f426','Mis controles', () => setState(() => tab = 1))), const SizedBox(width: 8), Expanded(child: homeTile('8c906','Educación', () => push(EducationScreen(repository: widget.repository))))]),
-      const SizedBox(height: 8), Row(children: [Expanded(child: homeTile('a2b80','Señales de alerta', () => setState(() => tab = 2))), const SizedBox(width: 8), Expanded(child: homeTile('6d486','Pedir ayuda', () => push(SupportScreen(repository: widget.repository))))]),
+      const SizedBox(height: 16), Row(children: [Expanded(child: homeTile('1f426','Mis controles', () => selectTab(1))), const SizedBox(width: 8), Expanded(child: homeTile('8c906','Educación', () => push(EducationScreen(repository: widget.repository))))]),
+      const SizedBox(height: 8), Row(children: [Expanded(child: homeTile('a2b80','Señales de alerta', () => selectTab(2))), const SizedBox(width: 8), Expanded(child: homeTile('6d486','Pedir ayuda', () => push(SupportScreen(repository: widget.repository))))]),
       const SizedBox(height: 12), TextButton(onPressed: () async { final p = await Navigator.push<Profile>(context, MaterialPageRoute(builder: (_) => ProfileScreen(repository: widget.repository, initial: profile))); if (p != null) setState(() => profile = p); }, child: const Text('Editar mis datos')),
     ]);
   }
