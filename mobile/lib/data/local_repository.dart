@@ -28,12 +28,14 @@ class PrenatalControl {
     required this.systolic,
     required this.diastolic,
     required this.hemoglobin,
+    this.vaccines = '',
   });
   final DateTime date;
   final double weight;
   final int systolic;
   final int diastolic;
   final double hemoglobin;
+  final String vaccines;
 }
 
 abstract interface class LocalRepository {
@@ -68,13 +70,13 @@ class EncryptedLocalRepository implements LocalRepository, SettingsRepository {
     return openDatabase(
       filePath,
       password: key,
-      version: 2,
+      version: 3,
       onCreate: (db, version) async {
         await db.execute(
           'CREATE TABLE profile (id INTEGER PRIMARY KEY, name TEXT NOT NULL, community TEXT NOT NULL, registrant TEXT NOT NULL, age INTEGER, last_period TEXT)',
         );
         await db.execute(
-          'CREATE TABLE prenatal_control (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT NOT NULL, weight REAL NOT NULL, systolic INTEGER NOT NULL, diastolic INTEGER NOT NULL, hemoglobin REAL NOT NULL)',
+          "CREATE TABLE prenatal_control (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT NOT NULL, weight REAL NOT NULL, systolic INTEGER NOT NULL, diastolic INTEGER NOT NULL, hemoglobin REAL NOT NULL, vaccines TEXT NOT NULL DEFAULT '')",
         );
         await db.execute('CREATE TABLE settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
       },
@@ -83,6 +85,9 @@ class EncryptedLocalRepository implements LocalRepository, SettingsRepository {
           await db.execute('ALTER TABLE profile ADD COLUMN age INTEGER');
           await db.execute('ALTER TABLE profile ADD COLUMN last_period TEXT');
           await db.execute('CREATE TABLE settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
+        }
+        if (oldVersion < 3) {
+          await db.execute("ALTER TABLE prenatal_control ADD COLUMN vaccines TEXT NOT NULL DEFAULT ''");
         }
       },
     );
@@ -132,6 +137,7 @@ class EncryptedLocalRepository implements LocalRepository, SettingsRepository {
             systolic: row['systolic'] as int,
             diastolic: row['diastolic'] as int,
             hemoglobin: (row['hemoglobin'] as num).toDouble(),
+            vaccines: row['vaccines'] as String? ?? '',
           ),
         )
         .toList();
@@ -145,6 +151,7 @@ class EncryptedLocalRepository implements LocalRepository, SettingsRepository {
       'systolic': control.systolic,
       'diastolic': control.diastolic,
       'hemoglobin': control.hemoglobin,
+      'vaccines': control.vaccines,
     });
   }
 
