@@ -64,7 +64,7 @@ void main() {
         find.widgetWithText(TextFormField, 'Hemoglobina (g/dL)'),
         '12,5',
       );
-      await tester.testTextInput.hide();
+      tester.testTextInput.hide();
       await tester.pumpAndSettle();
       await tester.ensureVisible(find.text('Guardar'));
       await tester.pumpAndSettle();
