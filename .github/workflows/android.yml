@@ -27,11 +27,29 @@ jobs:
           channel: stable
           cache: true
       - name: Instalar dependencias
-        run: flutter pub get
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter pub get 2>&1 | tee "$RUNNER_TEMP/pub-output.txt" || {
+            while IFS= read -r line; do echo "::error::$line"; done < <(tail -n 20 "$RUNNER_TEMP/pub-output.txt")
+            exit 1
+          }
       - name: Ejecutar pruebas
-        run: flutter test --no-pub
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter test --no-pub 2>&1 | tee "$RUNNER_TEMP/test-output.txt" || {
+            while IFS= read -r line; do echo "::error::$line"; done < <(tail -n 25 "$RUNNER_TEMP/test-output.txt")
+            exit 1
+          }
       - name: Analizar código
-        run: flutter analyze --no-pub --no-fatal-infos
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter analyze --no-pub --no-fatal-infos 2>&1 | tee "$RUNNER_TEMP/analyze-output.txt" || {
+            while IFS= read -r line; do echo "::error::$line"; done < <(tail -n 30 "$RUNNER_TEMP/analyze-output.txt")
+            exit 1
+          }
       - name: Compilar APK de prueba por arquitectura
         run: flutter build apk --release --split-per-abi --no-pub
       - name: Guardar APK
