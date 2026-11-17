@@ -1,0 +1,47 @@
+name: APK de prueba compatible
+on:
+  push:
+    branches: [desarrollo-figma]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.50.0'
+          channel: stable
+          cache: true
+      - name: Preparar aplicación de prueba independiente
+        run: |
+          sed -i 's/applicationId = "com.example.control_gestantes"/applicationId = "com.example.control_gestantes.preview"/' android/app/build.gradle.kts
+          grep -q 'applicationId = "com.example.control_gestantes.preview"' android/app/build.gradle.kts
+          echo 'org.gradle.jvmargs=-Xmx3G -XX:MaxMetaspaceSize=1G' >> android/gradle.properties
+          flutter pub get
+      - name: Probar y compilar
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter test --no-pub
+          flutter build apk --release --no-pub 2>&1 | tee "$RUNNER_TEMP/compat-build.txt" || {
+            while IFS= read -r line; do echo "::error::$line"; done < <(grep -iE 'exception|error|fail|outofmemory|caused by' "$RUNNER_TEMP/compat-build.txt" | tail -n 35)
+            exit 1
+          }
+      - name: Guardar APK compatible
+        uses: actions/upload-artifact@v7
+        with:
+          name: rimaykullayki-android-compatible-prueba
+          path: mobile/build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+          retention-days: 7
