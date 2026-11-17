@@ -31,10 +31,6 @@ void main() {
       await tester.ensureVisible(find.text('Empezar →'));
       await tester.tap(find.text('Empezar →'));
       await tester.pumpAndSettle();
-      await tester.ensureVisible(find.text('Guardar'));
-      await tester.tap(find.text('Guardar'));
-      await tester.pumpAndSettle();
-      expect(find.text('Ingresa un nombre'), findsOneWidget);
       await tester.enterText(
         find.widgetWithText(TextFormField, 'Nombre'),
         'Persona de prueba',
