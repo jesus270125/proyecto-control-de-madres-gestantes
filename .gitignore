@@ -3,6 +3,7 @@
 !.env.example
 node_modules/
 .npm-cache/
+.tools/
 dist/
 coverage/
 .dart_tool/

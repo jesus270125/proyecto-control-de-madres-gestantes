@@ -18,9 +18,11 @@ Aplicación móvil para acompañamiento prenatal, basada en el diseño de Rimayk
 
 ### Aplicación Android
 
-En `mobile`, ejecutar `flutter create --platforms=android --project-name control_gestantes .`, después `flutter pub get` y `flutter run`. El primer comando genera los archivos nativos de Android que no se incluyen aún porque Flutter no estaba instalado al preparar este repositorio. No reemplazar `lib/` si la herramienta pregunta.
+En `mobile`, ejecutar `flutter pub get` y `flutter run` con el SDK de Android configurado y un dispositivo disponible. Se requieren Android 6.0 (API 23) o posterior y Java 17 o superior. El SDK Flutter instalado durante el desarrollo se encuentra en `.tools/flutter` y no se sube al repositorio.
 
-La aplicación inicial muestra la pantalla principal y navegación de ejemplo; **no guarda ni sincroniza datos todavía**. No introducir información de pacientes.
+La versión de desarrollo permite registrar un perfil y controles localmente en una base SQLCipher, con la clave en almacenamiento seguro del dispositivo. Todavía no hay cuentas, recuperación, sincronización con MySQL ni validación clínica. **Usar únicamente datos ficticios**, hasta completar y verificar las medidas de seguridad en Android.
+
+La copia de seguridad automática de Android está desactivada: desinstalar la aplicación o perder el dispositivo puede hacer perder los datos locales. La configuración de firma y el identificador Android aún son provisionales; no usar esta configuración para publicar una versión de producción.
 
 ### API
 

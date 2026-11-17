@@ -15,4 +15,4 @@ La primera versión está dirigida a gestantes de Abancay, con ayuda opcional de
 
 ## Estado
 
-La primera entrega es una base técnica sin persistencia de datos de gestantes. La pantalla móvil es una demostración visual y no debe emplearse con información real.
+El prototipo guarda un solo perfil y controles en SQLCipher, con una clave aleatoria guardada en el almacenamiento seguro del teléfono. No tiene autenticación, sincronización, recuperación ni una auditoría de seguridad. La pérdida de la clave o la desinstalación puede hacer inaccesibles los datos. Usar únicamente datos ficticios. No se calculan edades gestacionales ni se interpretan resultados clínicos.
