@@ -39,7 +39,7 @@ jobs:
         run: |
           set -o pipefail
           flutter test --no-pub 2>&1 | tee "$RUNNER_TEMP/test-output.txt" || {
-            while IFS= read -r line; do echo "::error::$line"; done < <(tail -n 25 "$RUNNER_TEMP/test-output.txt")
+            while IFS= read -r line; do echo "::error::$line"; done < <(tail -n 45 "$RUNNER_TEMP/test-output.txt")
             exit 1
           }
       - name: Analizar código

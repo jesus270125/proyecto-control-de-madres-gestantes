@@ -64,7 +64,10 @@ void main() {
         find.widgetWithText(TextFormField, 'Hemoglobina (g/dL)'),
         '12,5',
       );
+      await tester.testTextInput.hide();
+      await tester.pumpAndSettle();
       await tester.ensureVisible(find.text('Guardar'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Guardar'));
       await tester.pumpAndSettle();
       expect(repo.controls.single.weight, 60.5);
