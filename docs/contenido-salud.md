@@ -16,5 +16,5 @@ La aplicación es una versión de desarrollo para pruebas con datos ficticios. L
 - Traducción y grabaciones en la variante de quechua pertinente. La voz actual utiliza el motor en español instalado en el dispositivo y puede no estar disponible sin conexión.
 - Verificar teléfonos y establecimientos locales. Los datos de ejemplo del diseño no se usan como datos reales.
 - Autenticación, recuperación de datos, sincronización con MySQL, permisos, auditoría, copias de seguridad y evaluación de seguridad y privacidad.
-- Recordatorios, pruebas de accesibilidad, pruebas reales en dispositivos y validación visual completa frente a Figma.
+- La app puede abrir el calendario del teléfono con una cita, pero la usuaria debe guardarla y configurar su aviso allí. Quedan pendientes pruebas de recordatorios, accesibilidad, dispositivos reales y validación visual completa frente a Figma.
 - Sustituir el identificador y la firma de Android de prueba antes de distribuir una versión de producción.

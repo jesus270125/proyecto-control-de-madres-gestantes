@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:share_plus/share_plus.dart';
@@ -20,12 +21,19 @@ class _ControlsScreenState extends State<ControlsScreen> {
   void refresh() { controls = widget.repository.getControls(); }
   Future<void> loadDate() async { final r = widget.repository; if (r is SettingsRepository) { final s = await (r as SettingsRepository).getSetting('next_control'); if (mounted && s != null) setState(() => nextDate = DateTime.tryParse(s)); } }
   Future<void> chooseDate() async { final now = DateTime.now(); final d = await showDatePicker(context: context, initialDate: nextDate != null && nextDate!.isAfter(now) ? nextDate! : now, firstDate: DateTime(now.year, now.month, now.day), lastDate: DateTime(now.year + 2)); if (d == null || !mounted) return; final time = await showTimePicker(context: context, initialTime: const TimeOfDay(hour: 9, minute: 0)); if (time == null || !mounted) return; final value = DateTime(d.year, d.month, d.day, time.hour, time.minute); final r = widget.repository; if (r is SettingsRepository) await (r as SettingsRepository).saveSetting('next_control', value.toIso8601String()); if (mounted) setState(() => nextDate = value); }
+  Future<void> addCalendarReminder() async {
+    final date = nextDate;
+    if (date == null) return;
+    try { await const MethodChannel('rimaykullayki/calendar').invokeMethod<bool>('addEvent', {'start': date.millisecondsSinceEpoch}); }
+    catch (_) { if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No se pudo abrir el calendario de este teléfono.'))); }
+  }
   Future<void> add() async { final saved = await Navigator.push<bool>(context, MaterialPageRoute(builder: (_) => ControlFormScreen(repository: widget.repository))); if (saved == true && mounted) setState(refresh); }
   @override Widget build(BuildContext context) { final body = FutureBuilder<List<PrenatalControl>>(future: controls, builder: (context, snapshot) {
     if (snapshot.hasError) return const Center(child: Text('No se pudieron cargar los controles.'));
     if (!snapshot.hasData) return const Center(child: CircularProgressIndicator()); final list = snapshot.data!;
     return ListView(padding: const EdgeInsets.all(16), children: [const SectionTitle('Mis controles'), const SizedBox(height: 16),
       RoundedCard(color: rose, onTap: chooseDate, child: Row(children: [art('1f426'), const SizedBox(width: 12), Expanded(child: Text(nextDate == null ? 'Próximo control:\nToca para agregar una fecha' : 'Próximo control:\n${dateLabel(nextDate!)} · ${TimeOfDay.fromDateTime(nextDate!).format(context)}', style: const TextStyle(fontWeight: FontWeight.w800))), const Icon(Icons.edit_outlined, color: wine)])),
+      if (nextDate != null) TextButton.icon(onPressed: addCalendarReminder, icon: const Icon(Icons.event_available_outlined), label: const Text('Agregar al calendario del teléfono')),
       const SizedBox(height: 16), const Text('Historial de controles', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)), const SizedBox(height: 8),
       if (list.isEmpty) const RoundedCard(child: Text('Aún no has registrado controles.')) else ...list.map((c) => Padding(padding: const EdgeInsets.only(bottom: 8), child: RoundedCard(child: Row(children: [art('3154b', size: 24), const SizedBox(width: 12), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('${dateLabel(c.date)}\n${c.weight} kg · ${c.systolic}/${c.diastolic} mmHg · ${c.hemoglobin} g/dL'), if (c.vaccines.isNotEmpty) Text('Vacunas: ${c.vaccines}')]))])))),
       const SizedBox(height: 8), PrimaryButton('Registrar control', onPressed: add, icon: const Icon(Icons.add)), const SizedBox(height: 8),
