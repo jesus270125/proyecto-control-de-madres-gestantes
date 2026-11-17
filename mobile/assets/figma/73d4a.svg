@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Ilustraci&#195;&#179;n">
+<circle id="Halo c&#195;&#161;lido" cx="36" cy="36" r="33.4286" fill="#F7ECCD"/>
+<path id="Vestido" d="M26.3571 27C19.5 28.7143 16.0714 41.1429 16.0714 64.2857H55.9286C55.9286 41.1429 51.8571 28.7143 43.7143 27H26.3571Z" fill="#7B1E3A"/>
+<rect id="Cabello" x="23.1429" y="10.2857" width="25.7143" height="36" rx="11.5714" fill="#5E142B"/>
+<ellipse id="Rostro" cx="36" cy="23.7857" rx="8.35714" ry="9.64286" fill="#D6A285"/>
+<ellipse id="Barriga" cx="40.5" cy="47.5714" rx="12.2143" ry="10.9286" fill="#F4E4E9"/>
+<path id="Abrazo" d="M21.2894 39.2143C20.4386 50.7857 26.8195 56.1086 40.4321 55.1829M48.7274 39.2143C52.9813 46.1571 50.6416 51.48 41.7083 55.1829" stroke-width="4.5" stroke-linecap="round" stroke="#D6A285"/>
+<path id="Sonrisa" d="M32.1429 22.5V23.1857M40.5 22.5V23.1857M34.9286 26.6143C35.8571 27.9857 37.0179 27.9857 38.4107 26.6143" stroke-width="1.15714" stroke-linecap="round" stroke="#5E142B"/>
+<rect id="Detalle tejido" x="18.6429" y="61.7143" width="34.7143" height="1.92857" fill="#D9A441"/>
+</g>
+</svg>

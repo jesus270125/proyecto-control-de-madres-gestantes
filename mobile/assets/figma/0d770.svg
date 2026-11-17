@@ -1,0 +1,14 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Ilustraci&#195;&#179;n &#194;&#183; Huevo">
+<circle id="Halo c&#195;&#161;lido" cx="36" cy="36" r="34" fill="#F7ECCD"/>
+<ellipse id="Huevo entero" cx="26" cy="35.5" rx="14" ry="20.5" fill="#DAB68D"/>
+<g id="Clara de huevo">
+<ellipse cx="46" cy="41.5" rx="15" ry="19.5" fill="white"/>
+<mask id="stroke0_0_336" fill="white">
+<path d="M61 41.5C61 52.2696 54.2843 61 46 61C37.7157 61 31 52.2696 31 41.5C31 30.7304 37.7157 22 46 22C54.2843 22 61 30.7304 61 41.5Z"/>
+</mask>
+<ellipse cx="46" cy="41.5" rx="15" ry="19.5" stroke-width="2" stroke="#DCCBB7" mask="url(#stroke0_0_336)"/>
+</g>
+<ellipse id="Yema" cx="46.5" cy="45" rx="8.5" ry="9" fill="#D9A441"/>
+</g>
+</svg>

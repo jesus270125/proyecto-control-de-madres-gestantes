@@ -2,7 +2,7 @@ name: APK de prueba Android
 
 on:
   push:
-    branches: [main]
+    branches: [main, desarrollo-figma]
   workflow_dispatch:
 
 permissions:
@@ -30,12 +30,14 @@ jobs:
         run: flutter pub get
       - name: Ejecutar pruebas
         run: flutter test --no-pub
-      - name: Compilar APK de prueba
-        run: flutter build apk --debug --no-pub
+      - name: Analizar código
+        run: flutter analyze --no-pub --no-fatal-infos
+      - name: Compilar APK de prueba por arquitectura
+        run: flutter build apk --release --split-per-abi --no-pub
       - name: Guardar APK
         uses: actions/upload-artifact@v7
         with:
           name: control-gestantes-apk-prueba
-          path: mobile/build/app/outputs/flutter-apk/app-debug.apk
+          path: mobile/build/app/outputs/flutter-apk/app-*-release.apk
           if-no-files-found: error
           retention-days: 7

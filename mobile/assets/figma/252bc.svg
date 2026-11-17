@@ -1,0 +1,16 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Ilustraci&#195;&#179;n &#194;&#183; Carne">
+<circle id="Halo c&#195;&#161;lido" cx="36" cy="36" r="34" fill="#F7ECCD"/>
+<g id="Filete de carne">
+<use xlink:href="#stroke0_0_354" fill="#A94F57"/>
+<mask id="stroke1_0_354" fill="white">
+<use xlink:href="#stroke0_0_354"/>
+</mask>
+<path d="M14.8169 32.9877C6.62858 19.5802 28.123 14.4234 39.382 23.7056C46.5468 28.8623 57.8058 27.831 60.8765 38.1445C67.0177 54.6462 46.5468 60.8343 34.2643 54.6462C21.9818 48.4581 20.9582 45.364 14.8169 32.9877Z" stroke-width="6" stroke="#E9B3AE" mask="url(#stroke1_0_354)"/>
+</g>
+<path id="Vetas" d="M24 27C29.76 33.3158 38.76 36.8246 51 37.5263M29.4 35.4211C32.28 41.7368 37.32 45.5965 44.52 47" stroke-width="3" stroke-linecap="round" stroke="#E9B3AE"/>
+</g>
+<defs>
+<path id="stroke0_0_354" d="M14.8169 32.9878C6.62858 19.5802 28.123 14.4234 39.382 23.7056C46.5468 28.8623 57.8058 27.831 60.8765 38.1445C67.0177 54.6462 46.5468 60.8343 34.2643 54.6462C21.9818 48.4581 20.9582 45.364 14.8169 32.9878Z"/>
+</defs>
+</svg>

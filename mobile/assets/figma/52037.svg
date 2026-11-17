@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Ilustraci&#195;&#179;n">
+<circle id="Halo c&#195;&#161;lido" cx="36" cy="36" r="33.4286" fill="#F7ECCD"/>
+<path id="Cuenco" d="M11.5714 34.0714H61.7143L55.9286 52.7143C43.0714 60.4286 30.2143 60.4286 17.3571 52.7143L11.5714 34.0714Z" fill="#7B1E3A"/>
+<ellipse id="Alimento" cx="36.6429" cy="35.0357" rx="25.0714" ry="9.96429" fill="#D9A441"/>
+<ellipse id="Grano" cx="20.5714" cy="33.75" rx="1.92857" ry="1.60714" fill="#F7ECCD"/>
+<ellipse id="Grano_2" cx="27.6429" cy="30.5357" rx="1.92857" ry="1.60714" fill="#F7ECCD"/>
+<ellipse id="Grano_3" cx="35.3571" cy="33.1071" rx="1.92857" ry="1.60714" fill="#F7ECCD"/>
+<ellipse id="Grano_4" cx="43.0714" cy="30.5357" rx="1.92857" ry="1.60714" fill="#F7ECCD"/>
+<ellipse id="Grano_5" cx="50.7857" cy="34.3929" rx="1.92857" ry="1.60714" fill="#F7ECCD"/>
+<ellipse id="Grano_6" cx="26.3571" cy="38.8929" rx="1.92857" ry="1.60714" fill="#F7ECCD"/>
+<ellipse id="Grano_7" cx="34.0714" cy="39.5357" rx="1.92857" ry="1.60714" fill="#F7ECCD"/>
+<ellipse id="Grano_8" cx="43.0714" cy="38.8929" rx="1.92857" ry="1.60714" fill="#F7ECCD"/>
+<ellipse id="Grano_9" cx="54.6429" cy="38.25" rx="1.92857" ry="1.60714" fill="#F7ECCD"/>
+<path id="Detalle del cuenco" d="M20.5714 50.7857C31.2857 56.7857 42 56.7857 52.7143 50.7857" stroke-width="1.92857" stroke="#D9A441"/>
+<path id="Espigas" d="M22.9003 19.9286V14.7857M22.9003 14.7857V8.35714M22.9003 14.7857L20.5714 11.5714M22.9003 14.7857L25.8113 10.9286M48.5175 19.9286V14.7857M48.5175 14.7857V8.35714M48.5175 14.7857L45.6065 10.9286M48.5175 14.7857L51.4286 10.9286" stroke-width="1.60714" stroke-linecap="round" stroke="#D9A441"/>
+</g>
+</svg>

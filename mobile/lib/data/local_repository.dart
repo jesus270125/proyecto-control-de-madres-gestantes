@@ -11,10 +11,14 @@ class Profile {
     required this.name,
     required this.community,
     required this.registrant,
+    this.age,
+    this.lastPeriod,
   });
   final String name;
   final String community;
   final String registrant;
+  final int? age;
+  final DateTime? lastPeriod;
 }
 
 class PrenatalControl {
@@ -39,7 +43,12 @@ abstract interface class LocalRepository {
   Future<void> addControl(PrenatalControl control);
 }
 
-class EncryptedLocalRepository implements LocalRepository {
+abstract interface class SettingsRepository {
+  Future<String?> getSetting(String key);
+  Future<void> saveSetting(String key, String value);
+}
+
+class EncryptedLocalRepository implements LocalRepository, SettingsRepository {
   final _secureStorage = const FlutterSecureStorage();
   Future<Database>? _database;
   Future<Database> get database => _database ??= _open();
@@ -59,14 +68,22 @@ class EncryptedLocalRepository implements LocalRepository {
     return openDatabase(
       filePath,
       password: key,
-      version: 1,
+      version: 2,
       onCreate: (db, version) async {
         await db.execute(
-          'CREATE TABLE profile (id INTEGER PRIMARY KEY, name TEXT NOT NULL, community TEXT NOT NULL, registrant TEXT NOT NULL)',
+          'CREATE TABLE profile (id INTEGER PRIMARY KEY, name TEXT NOT NULL, community TEXT NOT NULL, registrant TEXT NOT NULL, age INTEGER, last_period TEXT)',
         );
         await db.execute(
           'CREATE TABLE prenatal_control (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT NOT NULL, weight REAL NOT NULL, systolic INTEGER NOT NULL, diastolic INTEGER NOT NULL, hemoglobin REAL NOT NULL)',
         );
+        await db.execute('CREATE TABLE settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 2) {
+          await db.execute('ALTER TABLE profile ADD COLUMN age INTEGER');
+          await db.execute('ALTER TABLE profile ADD COLUMN last_period TEXT');
+          await db.execute('CREATE TABLE settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
+        }
       },
     );
   }
@@ -84,6 +101,8 @@ class EncryptedLocalRepository implements LocalRepository {
       name: row['name'] as String,
       community: row['community'] as String,
       registrant: row['registrant'] as String,
+      age: row['age'] as int?,
+      lastPeriod: row['last_period'] == null ? null : DateTime.parse(row['last_period'] as String),
     );
   }
 
@@ -94,6 +113,8 @@ class EncryptedLocalRepository implements LocalRepository {
       'name': profile.name,
       'community': profile.community,
       'registrant': profile.registrant,
+      'age': profile.age,
+      'last_period': profile.lastPeriod?.toIso8601String(),
     }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
@@ -125,5 +146,16 @@ class EncryptedLocalRepository implements LocalRepository {
       'diastolic': control.diastolic,
       'hemoglobin': control.hemoglobin,
     });
+  }
+
+  @override
+  Future<String?> getSetting(String key) async {
+    final rows = await (await database).query('settings', where: 'key = ?', whereArgs: [key]);
+    return rows.isEmpty ? null : rows.first['value'] as String;
+  }
+
+  @override
+  Future<void> saveSetting(String key, String value) async {
+    await (await database).insert('settings', {'key': key, 'value': value}, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 }

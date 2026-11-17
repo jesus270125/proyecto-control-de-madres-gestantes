@@ -28,8 +28,10 @@ void main() {
       final repo = FakeRepository();
       await tester.pumpWidget(GestantesApp(repository: repo));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Registrar mis datos'));
+      await tester.ensureVisible(find.text('Empezar →'));
+      await tester.tap(find.text('Empezar →'));
       await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text('Guardar'));
       await tester.tap(find.text('Guardar'));
       await tester.pumpAndSettle();
       expect(find.text('Ingresa un nombre'), findsOneWidget);
@@ -37,13 +39,15 @@ void main() {
         find.widgetWithText(TextFormField, 'Nombre'),
         'Persona de prueba',
       );
+      await tester.enterText(find.widgetWithText(TextFormField, 'Edad'), '24');
       await tester.enterText(
         find.widgetWithText(TextFormField, 'Comunidad'),
         'Abancay',
       );
+      await tester.ensureVisible(find.text('Guardar'));
       await tester.tap(find.text('Guardar'));
       await tester.pumpAndSettle();
-      expect(find.text('Hola, Persona de prueba'), findsOneWidget);
+      expect(find.text('Hola, Persona'), findsOneWidget);
       await tester.tap(find.text('Mis controles'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Registrar control'));
@@ -53,19 +57,19 @@ void main() {
         '60,5',
       );
       await tester.enterText(
-        find.widgetWithText(TextFormField, 'Presión sistólica (mmHg)'),
+        find.widgetWithText(TextFormField, 'Sistólica'),
         '110',
       );
       await tester.enterText(
-        find.widgetWithText(TextFormField, 'Presión diastólica (mmHg)'),
+        find.widgetWithText(TextFormField, 'Diastólica'),
         '70',
       );
       await tester.enterText(
         find.widgetWithText(TextFormField, 'Hemoglobina (g/dL)'),
         '12,5',
       );
-      await tester.ensureVisible(find.text('Guardar control'));
-      await tester.tap(find.text('Guardar control'));
+      await tester.ensureVisible(find.text('Guardar'));
+      await tester.tap(find.text('Guardar'));
       await tester.pumpAndSettle();
       expect(repo.controls.single.weight, 60.5);
       expect(find.textContaining('110/70'), findsOneWidget);

@@ -1,0 +1,44 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="144" height="144" viewBox="0 0 144 144" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Plato dividido en tres grupos">
+<g id="Plato" filter="url(#filter0_d_0_71)">
+<circle cx="72" cy="69" r="60" fill="white"/>
+</g>
+<g id="Porci&#195;&#179;n del grupo">
+<use xlink:href="#stroke0_0_71" fill="#7B1E3A"/>
+<mask id="stroke1_0_71" fill="white">
+<use xlink:href="#stroke0_0_71"/>
+</mask>
+<path d="M72 15C81.479 15 90.791 17.4951 99 22.2346C107.209 26.9741 114.026 33.791 118.765 42C123.505 50.209 126 59.521 126 69C126 78.479 123.505 87.791 118.765 96L72 69L72 15Z" stroke-width="4" stroke="white" mask="url(#stroke1_0_71)"/>
+</g>
+<g id="Porci&#195;&#179;n del grupo_2">
+<use xlink:href="#stroke2_0_71" fill="#D9A441"/>
+<mask id="stroke3_0_71" fill="white">
+<use xlink:href="#stroke2_0_71"/>
+</mask>
+<path d="M118.765 96C114.026 104.209 107.209 111.026 99 115.765C90.791 120.505 81.479 123 72 123C62.521 123 53.209 120.505 45 115.765C36.791 111.026 29.9741 104.209 25.2346 96L72 69L118.765 96Z" stroke-width="4" stroke="white" mask="url(#stroke3_0_71)"/>
+</g>
+<g id="Porci&#195;&#179;n del grupo_3">
+<use xlink:href="#stroke4_0_71" fill="#8A5A44"/>
+<mask id="stroke5_0_71" fill="white">
+<use xlink:href="#stroke4_0_71"/>
+</mask>
+<path d="M25.2346 96C20.4951 87.791 18 78.479 18 69C18 59.521 20.4951 50.209 25.2346 42C29.9741 33.791 36.791 26.9741 45 22.2346C53.209 17.4951 62.521 15 72 15L72 69L25.2346 96Z" stroke-width="4" stroke="white" mask="url(#stroke5_0_71)"/>
+</g>
+<circle id="Centro del plato" cx="72" cy="69" r="6" fill="white"/>
+</g>
+<defs>
+<filter id="filter0_d_0_71" x="0" y="0" width="144" height="144" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="3"/>
+<feGaussianBlur stdDeviation="6"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.368627 0 0 0 0 0.0784314 0 0 0 0 0.168627 0 0 0 0.0470588 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_71"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_71" result="shape"/>
+</filter>
+<path id="stroke0_0_71" d="M72 15C81.479 15 90.791 17.4951 99 22.2346C107.209 26.9741 114.026 33.791 118.765 42C123.505 50.209 126 59.521 126 69C126 78.479 123.505 87.791 118.765 96L72 69L72 15Z"/>
+<path id="stroke2_0_71" d="M118.765 96C114.026 104.209 107.209 111.026 99 115.765C90.791 120.505 81.479 123 72 123C62.521 123 53.209 120.505 45 115.765C36.791 111.026 29.9741 104.209 25.2346 96L72 69L118.765 96Z"/>
+<path id="stroke4_0_71" d="M25.2346 96C20.4951 87.791 18 78.479 18 69C18 59.521 20.4951 50.209 25.2346 42C29.9741 33.791 36.791 26.9741 45 22.2346C53.209 17.4951 62.521 15 72 15V69L25.2346 96Z"/>
+</defs>
+</svg>

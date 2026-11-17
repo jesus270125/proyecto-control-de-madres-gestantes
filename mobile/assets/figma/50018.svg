@@ -1,0 +1,17 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Ilustraci&#195;&#179;n del alimento">
+<circle id="Halo c&#195;&#161;lido" cx="36" cy="36" r="34" fill="#F7ECCD"/>
+<path id="Cuenco" d="M11 35H61L54 54C42 60.6667 30 60.6667 18 54L11 35Z" fill="#7B1E3A"/>
+<ellipse id="Alimento" cx="36" cy="35.5" rx="25" ry="10.5" fill="#6F774A"/>
+<ellipse id="Grano" cx="21" cy="31.5" rx="4" ry="2.5" fill="#F7ECCD"/>
+<ellipse id="Grano_2" cx="31" cy="31.5" rx="4" ry="2.5" fill="#F7ECCD"/>
+<ellipse id="Grano_3" cx="41" cy="31.5" rx="4" ry="2.5" fill="#F7ECCD"/>
+<ellipse id="Grano_4" cx="51" cy="31.5" rx="4" ry="2.5" fill="#F7ECCD"/>
+<ellipse id="Grano_5" cx="24" cy="36.5" rx="4" ry="2.5" fill="#F7ECCD"/>
+<ellipse id="Grano_6" cx="34" cy="36.5" rx="4" ry="2.5" fill="#F7ECCD"/>
+<ellipse id="Grano_7" cx="44" cy="36.5" rx="4" ry="2.5" fill="#F7ECCD"/>
+<ellipse id="Grano_8" cx="54" cy="36.5" rx="4" ry="2.5" fill="#F7ECCD"/>
+<ellipse id="Grano_9" cx="21" cy="41.5" rx="4" ry="2.5" fill="#F7ECCD"/>
+<path id="Detalle del cuenco" d="M20 51C30.6667 57.6667 41.3333 57.6667 52 51" stroke-width="2" stroke-linecap="round" stroke="#D9A441"/>
+</g>
+</svg>
