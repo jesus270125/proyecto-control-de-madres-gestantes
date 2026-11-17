@@ -54,8 +54,9 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
+          echo 'org.gradle.jvmargs=-Xmx3G -XX:MaxMetaspaceSize=1G' >> android/gradle.properties
           flutter build apk --release --split-per-abi --no-pub 2>&1 | tee "$RUNNER_TEMP/build-output.txt" || {
-            while IFS= read -r line; do echo "::error::$line"; done < <(tail -n 45 "$RUNNER_TEMP/build-output.txt")
+            while IFS= read -r line; do echo "::error::$line"; done < <(grep -iE 'exception|error|fail|outofmemory|caused by' "$RUNNER_TEMP/build-output.txt" | tail -n 35)
             exit 1
           }
       - name: Guardar APK ARM64
