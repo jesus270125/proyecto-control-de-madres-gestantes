@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:control_gestantes/data/local_repository.dart';
 import 'package:control_gestantes/main.dart';
+import 'package:control_gestantes/screens/prenatal_screens.dart';
 
 class FakeRepository implements LocalRepository {
   Profile? profile;
@@ -22,6 +23,18 @@ class FakeRepository implements LocalRepository {
 }
 
 void main() {
+  testWidgets('una señal comunicada lleva a una recomendación de atención', (tester) async {
+    final repo = FakeRepository();
+    await tester.pumpWidget(MaterialApp(home: AlertScreen(repository: repo)));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Sí'));
+    await tester.pumpAndSettle();
+    for (var i = 0; i < 5; i++) {
+      await tester.tap(find.text('No'));
+      await tester.pumpAndSettle();
+    }
+    expect(find.textContaining('Acude ahora'), findsOneWidget);
+  });
   testWidgets(
     'perfil y control se guardan y muestran mediante el repositorio',
     (tester) async {
