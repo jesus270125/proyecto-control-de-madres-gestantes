@@ -51,13 +51,16 @@ abstract interface class SettingsRepository {
 }
 
 class EncryptedLocalRepository implements LocalRepository, SettingsRepository {
+  EncryptedLocalRepository({this.databaseName = 'gestantes.db', this.keyName = 'database_key'});
+  final String databaseName;
+  final String keyName;
   final _secureStorage = const FlutterSecureStorage();
   Future<Database>? _database;
   Future<Database> get database => _database ??= _open();
 
   Future<Database> _open() async {
-    final filePath = path.join(await getDatabasesPath(), 'gestantes.db');
-    var key = await _secureStorage.read(key: 'database_key');
+    final filePath = path.join(await getDatabasesPath(), databaseName);
+    var key = await _secureStorage.read(key: keyName);
     if (key == null) {
       // Nunca crear una clave nueva sobre una base existente: evitar pérdida silenciosa.
       if (await File(filePath).exists()) {
@@ -65,7 +68,7 @@ class EncryptedLocalRepository implements LocalRepository, SettingsRepository {
       }
       final random = Random.secure();
       key = base64UrlEncode(List.generate(32, (_) => random.nextInt(256)));
-      await _secureStorage.write(key: 'database_key', value: key);
+      await _secureStorage.write(key: keyName, value: key);
     }
     return openDatabase(
       filePath,
