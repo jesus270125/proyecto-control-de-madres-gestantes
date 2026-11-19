@@ -34,7 +34,7 @@ void main() {
       await tester.tap(find.text('No'));
       await tester.pumpAndSettle();
     }
-    await tester.scrollUntilVisible(find.text('Qué hacer'), 200);
+    await tester.scrollUntilVisible(find.text('Qué hacer'), 200, scrollable: find.descendant(of: find.byType(AlertResultScreen), matching: find.byType(Scrollable)).first);
     expect(find.textContaining('Señal de alarma'), findsOneWidget);
     await tester.tap(find.text('Qué hacer'));
     await tester.pumpAndSettle();
@@ -44,7 +44,7 @@ void main() {
     final repo = FakeRepository();
     await tester.pumpWidget(MaterialApp(home: ProfileScreen(repository: repo, initial: Profile(name: 'Prueba', community: 'Abancay', registrant: 'Yo', age: 24, lastPeriod: DateTime(2026, 1, 1)))));
     await tester.pumpAndSettle();
-    await tester.scrollUntilVisible(find.textContaining('Fecha probable de parto'), 200);
+    await tester.scrollUntilVisible(find.textContaining('Fecha probable de parto'), 200, scrollable: find.descendant(of: find.byType(ProfileScreen), matching: find.byType(Scrollable)).first);
     expect(find.textContaining('08/10/2026'), findsOneWidget);
   });
   testWidgets(
@@ -73,7 +73,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('Mis controles')); 
       await tester.pumpAndSettle();
-      await tester.scrollUntilVisible(find.text('Registrar control'), 200);
+      await tester.scrollUntilVisible(find.text('Registrar control'), 200, scrollable: find.descendant(of: find.byType(ControlsScreen), matching: find.byType(Scrollable)).first);
       await tester.pumpAndSettle();
       await tester.tap(find.text('Registrar control'));
       await tester.pumpAndSettle();
