@@ -9,6 +9,10 @@ La aplicación es una versión de desarrollo para pruebas con datos ficticios. L
 - [MINSA: controles prenatales](https://www.gob.pe/institucion/minsa/noticias/1401108-tu-bebe-crece-dia-a-dia-acompana-su-desarrollo-con-tus-controles-prenatales).
 - [MINSA: norma de prevención y control de anemia](https://cdn.www.gob.pe/uploads/document/file/6166763/5440166-resolucion-ministerial-n-251-2024-minsa.pdf?v=1712758346): contenidos técnicos de alimentación de la gestante.
 - [Estado peruano: teléfonos de emergencia](https://www.gob.pe/547-telefonos-de-emergencia): línea 113 para orientación. La disponibilidad del 106 en Apurímac debe verificarse localmente; por eso no se asigna automáticamente un número de ambulancia.
+- [NHS: calculadora de fecha probable de parto](https://www.nhs.uk/pregnancy/finding-out/due-date-calculator/): estimación desde el primer día de la última menstruación; la fecha debe confirmarse durante el control prenatal.
+- [OMS: señales de alerta durante el embarazo](https://www.who.int/campaigns/world-health-day/2025/key-messages): orientación para buscar atención ante señales de alarma.
+
+La fecha probable usa 280 días desde la última menstruación, como aproximación para un ciclo de 28 días; no sustituye la evaluación ni la ecografía. El cuestionario no usa los colores del ejemplo de Figma como clasificación clínica: si se reporta cualquiera de las señales consultadas se muestra una advertencia roja y se pide atención; si no, se muestra una indicación ámbar que recuerda que el cuestionario no descarta complicaciones. Esto requiere validación clínica local.
 
 ## Pendiente antes de uso real
 

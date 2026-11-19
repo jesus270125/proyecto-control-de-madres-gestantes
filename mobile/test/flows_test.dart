@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:control_gestantes/data/local_repository.dart';
 import 'package:control_gestantes/main.dart';
 import 'package:control_gestantes/screens/prenatal_screens.dart';
+import 'package:control_gestantes/screens/core_screens.dart';
 
 class FakeRepository implements LocalRepository {
   Profile? profile;
@@ -33,8 +34,18 @@ void main() {
       await tester.tap(find.text('No'));
       await tester.pumpAndSettle();
     }
-    await tester.scrollUntilVisible(find.textContaining('Acude ahora'), 200);
-    expect(find.textContaining('Acude ahora'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('Qué hacer'), 200);
+    expect(find.textContaining('Señal de alarma'), findsOneWidget);
+    await tester.tap(find.text('Qué hacer'));
+    await tester.pumpAndSettle();
+    expect(find.text('Busca atención inmediatamente'), findsOneWidget);
+  });
+  testWidgets('la fecha probable se calcula desde la última regla', (tester) async {
+    final repo = FakeRepository();
+    await tester.pumpWidget(MaterialApp(home: ProfileScreen(repository: repo, initial: Profile(name: 'Prueba', community: 'Abancay', registrant: 'Yo', age: 24, lastPeriod: DateTime(2026, 1, 1)))));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.textContaining('Fecha probable de parto'), 200);
+    expect(find.textContaining('08/10/2026'), findsOneWidget);
   });
   testWidgets(
     'perfil y control se guardan y muestran mediante el repositorio',
@@ -62,7 +73,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('Mis controles')); 
       await tester.pumpAndSettle();
-      await tester.ensureVisible(find.text('Registrar control'));
+      await tester.scrollUntilVisible(find.text('Registrar control'), 200);
       await tester.pumpAndSettle();
       await tester.tap(find.text('Registrar control'));
       await tester.pumpAndSettle();

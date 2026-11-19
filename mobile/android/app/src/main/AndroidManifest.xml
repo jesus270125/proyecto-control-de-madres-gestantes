@@ -3,7 +3,8 @@
         android:label="Rimaykullayki"
         android:allowBackup="false"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@drawable/wawayki_logo"
+        android:roundIcon="@drawable/wawayki_logo">
         <activity
             android:name=".MainActivity"
             android:exported="true"
